@@ -9,7 +9,6 @@ import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
-import android.os.RemoteException;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -26,16 +25,16 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         if (!bindService(new Intent("jp.co.benesse.dcha.dchaservice.DchaService").setPackage("jp.co.benesse.dcha.dchaservice"),
-                new ServiceConnection() {
-                    @Override
-                    public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
-                        mDchaService = IDchaService.Stub.asInterface(iBinder);
-                    }
+            new ServiceConnection() {
+                @Override
+                public void onServiceConnected(ComponentName componentName, IBinder iBinder) {
+                    mDchaService = IDchaService.Stub.asInterface(iBinder);
+                }
 
-                    @Override
-                    public void onServiceDisconnected(ComponentName componentName) {
-                    }
-                }, Context.BIND_AUTO_CREATE)) {
+                @Override
+                public void onServiceDisconnected(ComponentName componentName) {
+                }
+            }, Context.BIND_AUTO_CREATE)) {
             addText("RESULT: Failed to bind to DchaService");
             return;
         }
@@ -45,16 +44,16 @@ public class MainActivity extends Activity {
                 tryEnableGService();
                 addText("RESULT: Success");
                 new AlertDialog.Builder(this)
-                        .setCancelable(false)
-                        .setMessage("Do you want to restart now?")
-                        .setPositiveButton("Yes", (dialog, which) -> {
-                            try {
-                                mDchaService.rebootPad(0, null);
-                            } catch (Exception ignored) {
-                            }
-                        })
-                        .setNegativeButton("No", null)
-                        .show();
+                    .setCancelable(false)
+                    .setMessage("Do you want to restart now?")
+                    .setPositiveButton("Yes", (dialog, which) -> {
+                        try {
+                            mDchaService.rebootPad(0, null);
+                        } catch (Exception ignored) {
+                        }
+                    })
+                    .setNegativeButton("No", null)
+                    .show();
             } catch (Exception e) {
                 addText("RESULT: ");
                 addText(e.toString());
