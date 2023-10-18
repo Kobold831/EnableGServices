@@ -7,6 +7,7 @@
     <uses-permission android:name="jp.co.benesse.dcha.permission.ACCESS_SYSTEM" />
 
     <application
+        android:label="EnableGServices"
         android:theme="@android:style/Theme.Material.Light.NoActionBar"
         tools:ignore="MissingApplicationIcon">
 
